@@ -9,12 +9,20 @@ import * as React from "react";
 //   );
 // }
 
-const Search = () => (
-  <div>
+const Search = () => {
+  // do something here...
+
+  const handleChange = (event) => {
+    console.log(event.target.value);
+  };
+
+  return (
+    <div>
     <label htmlFor="search">Search: </label>
-    <input id="search" type="text"/>
+    <input id="search" type="text" onChange={handleChange}/>
   </div>
-);
+  );
+};
 
 const Item = (item) => (
   <li key={item.objectID}>
