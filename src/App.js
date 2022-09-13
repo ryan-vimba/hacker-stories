@@ -2,12 +2,6 @@ import * as React from "react";
 
 const App = () => {
 
-  const [searchTerm, setSearchTerm] = React.useState('');
-
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
   const stories = [
     {
       title: "React",
@@ -27,12 +21,18 @@ const App = () => {
     }
   ];
 
+  const [searchTerm, setSearchTerm] = React.useState('React');
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   const searchedStories = stories.filter((story) => story.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div>
       <h1>My Hacker Stories</h1>
-      <Search onSearch={handleChange}/>
+      <Search search={searchTerm} onSearch={handleChange}/>
       <hr />
       <p>Searched for <strong>{searchTerm}</strong></p>
       <hr />
@@ -45,7 +45,7 @@ const Search = (props) => {
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input id="search" type="text" onChange={props.onSearch}/>
+      <input id="search" type="text" value={props.search} onChange={props.onSearch}/>
     </div>
   );
 };
