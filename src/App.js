@@ -1,12 +1,11 @@
 import * as React from "react";
 
-const Search = () => {
-  console.log("Search renders");
-
+const Search = (props) => {
   const [searchTerm, setSearchTerm] = React.useState('');
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
+    props.onSearch(event);
   };
 
   return (
@@ -59,10 +58,14 @@ const App = () => {
   ];
   console.log("App renders");
 
+  const handleSearch = (event) => {
+    console.log(event.target.value);
+  }
+
   return (
     <div>
       <h1>My Hacker Stories</h1>
-      <Search />
+      <Search onSearch={handleSearch}/>
       <hr />
       <List list={stories}/>
       <hr />
