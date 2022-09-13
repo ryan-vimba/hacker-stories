@@ -1,21 +1,51 @@
 import * as React from "react";
 
-const Search = (props) => {
+const App = () => {
+
   const [searchTerm, setSearchTerm] = React.useState('');
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
-    props.onSearch(event);
   };
+
+  const stories = [
+    {
+      title: "React",
+      url: 'https://reactjs.org/',
+      author: 'Jordan Walke',
+      num_comments: 3,
+      points: 4,
+      objectID: 0,
+    },
+    {
+      title: "Redux",
+      url: 'https://redux.js.org/',
+      author: 'Dan Abramov, Andrew Clark',
+      num_comments: 2,
+      points: 5,
+      objectID: 1,
+    }
+  ];
+
+  const searchedStories = stories.filter((story) => story.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div>
-      <label htmlFor="search">Search: </label>
-      <input id="search" type="text" onChange={handleChange}/>
+      <h1>My Hacker Stories</h1>
+      <Search onSearch={handleChange}/>
+      <hr />
+      <p>Searched for <strong>{searchTerm}</strong></p>
+      <hr />
+      <List list={searchedStories}/>
+    </div>
+  );
+};
 
-      <p>
-        Searching for <strong>{searchTerm}</strong>
-      </p>
+const Search = (props) => {
+  return (
+    <div>
+      <label htmlFor="search">Search: </label>
+      <input id="search" type="text" onChange={props.onSearch}/>
     </div>
   );
 };
@@ -36,42 +66,5 @@ const List = (props) => (
     ))}
   </ul>
 );
-
-const App = () => {
-  const stories = [
-    {
-      title: "React",
-      url: 'https://reactjs.org/',
-      author: 'Jordan Walke',
-      num_comments: 3,
-      points: 4,
-      objectID: 0,
-    },
-    {
-      title: "Redux",
-      url: 'https://redux.js.org/',
-      author: 'Dan Abramov, Andrew Clark',
-      num_comments: 2,
-      points: 5,
-      objectID: 1,
-    }
-  ];
-  console.log("App renders");
-
-  const handleSearch = (event) => {
-    console.log(event.target.value);
-  }
-
-  return (
-    <div>
-      <h1>My Hacker Stories</h1>
-      <Search onSearch={handleSearch}/>
-      <hr />
-      <List list={stories}/>
-      <hr />
-      <List list={stories}/>
-    </div>
-  );
-};
 
 export default App;
