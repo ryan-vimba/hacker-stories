@@ -29,22 +29,22 @@ const App = () => {
   const searchedStories = stories.filter((story) => story.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
-    <div>
+    <>
       <h1>My Hacker Stories</h1>
       <Search search={searchTerm} onSearch={handleChange}/>
       <hr />
       <p>Searched for <strong>{searchTerm}</strong></p>
       <hr />
       <List list={searchedStories}/>
-    </div>
+    </>
   );
 };
 
 const Search = ({ search, onSearch }) => (
-  <div>
+  <>
     <label htmlFor="search">Search: </label>
     <input id="search" type="text" value={search} onChange={onSearch}/>
-  </div>
+  </>
 );
 
 const List = ({ list }) => (
