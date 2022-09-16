@@ -20,15 +20,11 @@ const App = () => {
     }
   ];
 
-  const [searchTerm, setSearchTerm] = React.useState(localStorage.getItem('search') || 'React');
-
+  const [searchTerm, setSearchTerm] = useSemiPermanentState('search', 'React');
+  
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
-
-  React.useEffect(() => {
-    localStorage.setItem('search', searchTerm);
-  }, [searchTerm]);
 
   const searchedStories = stories.filter((story) => story.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
@@ -67,5 +63,15 @@ const Item = ({ url, title, author, num_comments, points }) => (
     <span>{points}</span>
   </li>
 );
+
+const useSemiPermanentState = (key, initialState) => {
+  const [value, setValue] = React.useState(localStorage.getItem(key) || initialState)
+
+  React.useEffect(() => {
+    localStorage.setItem(key, value);
+  }, [key, value]);
+
+  return [value, setValue];
+}
 
 export default App;
